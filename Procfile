@@ -1,2 +1,2 @@
-worker vml35.py
+worker: python vml35.py
 
