@@ -13,9 +13,11 @@ first = 1
 document = ""
 for el in soup.select('.has-text-align-center'):
     txt = el.text.split()
-    print(txt)
-    if txt[0] == b"0JjQt9C80LXQvdC10L3QuNGP".decode():
+    print(b"0JjQt9C80LXQvdC10L3QuNGP".decode())
+    if txt[0] == b'\xd0\x98\xd0\xb7\xd0\xbc\xd0\xb5\xd0\xbd\xd0\xb5\xd0\xbd\xd0\xb8\xd1\x8f'.decode():
+        print(11)
         if date == 0:
+            print(txt[-2])
             date = int(txt[-2])
             month = txt[-1]
         else:
@@ -29,7 +31,7 @@ for el in soup.select('.has-text-align-center'):
                     date = int(txt[-2])
 
 
-i = 0
+i = 1
 search_for = 5 - 3*first
 for el in soup.select('.vml-tile-outer'):
     for son in el.select('.vml-tile-link'):
@@ -38,6 +40,7 @@ for el in soup.select('.vml-tile-outer'):
             document = son['href']
         i += 1
 f = open('last.txt', 'r')
+print(date)
 if int(f.read()) != date:
     #send
     sender.send_document('@vml35', document)
