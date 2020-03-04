@@ -67,7 +67,7 @@ while True:
 			print(mod, file=dt)
 		f.close()
 		dt.close()
-		time.sleep(10)
+		time.sleep(60)
 	except:
 		sender.send_message(me, "Error")
 #sender.polling()
