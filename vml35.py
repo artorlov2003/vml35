@@ -3,11 +3,9 @@ from bs4 import BeautifulSoup
 import telebot
 import time
 import os
-token = os.environ['TOKEN']
-me = os.environ['ME']
 sender = telebot.TeleBot(token)
 while True:
-	try:
+	#try:
 		html = requests.get('https://vml35.ru/raspisanie-zanyatij/').text
 		soup = BeautifulSoup(html, 'html.parser')
 		month = ""
@@ -44,18 +42,14 @@ while True:
 					document = son['href']
 				i += 1
 		f = open('last.txt', 'r')
-		dt = open('dt.txt', 'r')
 		print(date)
 		mod = requests.head(document).headers['last-modified']
 		if date != int(f.read()):
-			sender.send_document('@vml35', document)
+			sender.send_document(me, document)
 			print('sended', document)
 			f.close()
-			dt.close()
-			dt = open('dt.txt', 'r')
 			f = open('last.txt', 'w')
 			print(date, file=f)
-			print(mod, file=dt)
 		elif mod != dt.readline().strip():
 			sender.send_message(me, b'\xd0\xa0\xd0\xb0\xd1\x81\xd0\xbf\xd0\xb8\xd1\x81\xd0\xb0\xd0\xbd\xd0\xb8\xd0\xb5 \xd0\xb8\xd0\xb7\xd0\xbc\xd0\xb5\xd0\xbd\xd0\xb8\xd0\xbb\xd0\xbe\xd1\x81\xd1\x8c'.decode())
 			#sender.send_document('@vml35', document)
@@ -68,7 +62,7 @@ while True:
 		f.close()
 		dt.close()
 		time.sleep(60)
-	except:
+	#except:
 		sender.send_message(me, "Error")
 #sender.polling()
 	
